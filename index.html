@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kamervragen AI</title>
+<meta name="description" content="Kamervragen AI beantwoordt vragen over beantwoorde schriftelijke Kamervragen, met bij elke bewering een letterlijk citaat en een link naar de officiële publicatie. Gebouwd door Inogen voor SSC-ICT.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kamervragen AI">
+<meta property="og:description" content="Antwoorden uit 17.000 beantwoorde Kamervragen, met een letterlijk citaat bij elke bewering.">
+<meta property="og:image" content="https://kamervragen.inogen.ai/assets/social.png">
+<meta property="og:url" content="https://kamervragen.inogen.ai">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<nav class="nav">
+  <div class="wrap inner">
+    <a class="brand" href="#top"><span class="mark">K</span><span>Kamervragen <em>AI</em></span></a>
+    <div class="links">
+      <a href="#hoe">Hoe het werkt</a>
+      <a href="#resultaten">Resultaten</a>
+      <a href="#start">Aan de slag</a>
+      <a class="gh" href="https://github.com/inogen-ai/kamervragen-ai" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<main id="top">
+<header class="hero">
+  <div class="wrap">
+    <p class="kick">Door <a href="https://inogen.ai" target="_blank" rel="noopener">Inogen</a> voor SSC-ICT</p>
+    <h1>Vraag het aan zeventienduizend beantwoorde <i>Kamervragen.</i></h1>
+    <p class="lede">Kamervragen AI doorzoekt de volledige tekst van alle schriftelijke Kamervragen en regeringsantwoorden sinds 2019, zoekt zo vaak als nodig, en schrijft een antwoord waarin <b>elke bewering aan een letterlijk citaat</b> uit een specifiek document hangt, met een link naar de officiële publicatie.</p>
+    <div class="actions">
+      <a class="btn primary" href="#demo">Bekijk de demo</a>
+      <a class="btn ghost" href="https://github.com/inogen-ai/kamervragen-ai" target="_blank" rel="noopener">Broncode en documentatie</a>
+    </div>
+    <dl class="stats">
+      <div><dt>16.887</dt><dd>beantwoorde Kamervragen</dd></div>
+      <div><dt>156.302</dt><dd>vraag-antwoordparen</dd></div>
+      <div><dt>95%</dt><dd>juiste document in de top 5</dd></div>
+      <div><dt>2019–2026</dt><dd>vergaderjaren doorzoekbaar</dd></div>
+    </dl>
+  </div>
+</header>
+
+<section id="demo" class="demo">
+  <div class="wrap">
+    <figure class="frame">
+      <video autoplay muted loop playsinline poster="assets/screenshot-answer.png">
+        <source src="assets/demo.mp4" type="video/mp4">
+        <img src="assets/demo.gif" alt="Kamervragen AI beantwoordt een vraag over femicide: zoekstappen verschijnen, het antwoord streamt binnen en elke zin krijgt een genummerd citaat.">
+      </video>
+      <figcaption>Een echte sessie, op ware snelheid: vier zoekopdrachten, een chronologisch antwoord en twintig geciteerde bronnen in anderhalve minuut.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section id="hoe" class="how">
+  <div class="wrap">
+    <h2>Hoe het werkt</h2>
+    <p class="sub">Drie keuzes maken het verschil met een gewone zoekmachine of chatbot.</p>
+    <div class="cards">
+      <article>
+        <span class="n">1</span>
+        <h3>Officiële bronnen, gestructureerd</h3>
+        <p>De documentenlijst komt uit de Open Data API van de Tweede Kamer, de volledige tekst als gestructureerde XML van officielebekendmakingen.nl. Vraag en antwoord komen al gescheiden binnen: geen scraping, geen PDF-parsing, geen gemiste tekst.</p>
+      </article>
+      <article>
+        <span class="n">2</span>
+        <h3>Zoeken per vraag-antwoordpaar</h3>
+        <p>Elk paar is één zoekeenheid met de documentkop erboven. Betekenisvectoren (bge-m3) en trefwoordzoeken met Nederlandse stemming worden samengevoegd en door een reranker herordend. Datum- en ministeriefilters werken in de index zelf.</p>
+      </article>
+      <article>
+        <span class="n">3</span>
+        <h3>Een agent die citeert</h3>
+        <p>Claude bepaalt zelf welke zoekopdrachten nodig zijn, met welke periode, en zoekt opnieuw als de resultaten mager zijn. De antwoorden dragen citaten uit de API zelf: per zin de letterlijke passage en het brondocument. Niets wordt achteraf gereconstrueerd.</p>
+      </article>
+    </div>
+
+    <div class="flow" aria-label="Architectuur">
+      <div class="lane">
+        <span class="lbl">Eenmalig</span>
+        <span class="node">Open Data API</span><span class="arrow">→</span>
+        <span class="node">XML per Aanhangsel</span><span class="arrow">→</span>
+        <span class="node">1 chunk per Q&amp;A</span><span class="arrow">→</span>
+        <span class="node">bge-m3 + BM25 index</span>
+      </div>
+      <div class="lane">
+        <span class="lbl">Per vraag</span>
+        <span class="node accent">Claude</span><span class="arrow">⇄</span>
+        <span class="node">hybride zoeken · filters · reranker</span><span class="arrow">→</span>
+        <span class="node accent">antwoord met citaten</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="resultaten" class="results">
+  <div class="wrap">
+    <h2>Resultaten</h2>
+    <p class="sub">Zestig door een taalmodel geschreven gebruikersvragen, doel: het brondocument terugvinden. De vorige aanpak is op hetzelfde corpus nagebouwd.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Systeem</th><th>Plek 1</th><th>Top 5</th><th>Top 10</th></tr></thead>
+        <tbody>
+          <tr class="old"><td>Vorige prototype: heel document als één vector</td><td>15%</td><td>27%</td><td>37%</td></tr>
+          <tr><td>Nieuw: vectoren per vraag-antwoordpaar</td><td>72%</td><td>93%</td><td>95%</td></tr>
+          <tr><td>Nieuw: hybride (vectoren + trefwoorden)</td><td>70%</td><td>93%</td><td>97%</td></tr>
+          <tr class="best"><td>Nieuw: hybride + reranker</td><td>83%</td><td>95%</td><td>97%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callouts">
+      <article>
+        <h3>Antwoorden getoetst door een tweede model</h3>
+        <p>Elk demo-antwoord is door Claude Fable 5.1 beoordeeld op trouw aan de bronnen, volledigheid, helderheid en attributie. De systeemprompt is op de gevonden patronen herschreven; het aantal niet-gedekte beweringen daalde met ruim een derde.</p>
+      </article>
+      <article>
+        <h3>Eerlijk als het er niet is</h3>
+        <p>Vraag naar iets waarover geen Kamervragen bestaan, en het systeem zegt dat. Het beschrijft wat het wél vond en stelt een scherpere vraag voor. Het verzint geen documentnummers, data of citaten.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="shots">
+  <div class="wrap">
+    <div class="shot-grid">
+      <figure><img src="assets/screenshot-answer.png" alt="Antwoord met genummerde citaten en bronnenlijst" loading="lazy"><figcaption>Citaten als genummerde markers; klik en je springt naar de bron met het letterlijke citaat.</figcaption></figure>
+      <figure><img src="assets/screenshot-dark.png" alt="Startscherm met voorbeeldvragen in donker thema" loading="lazy"><figcaption>Startscherm met voorbeeldvragen, model- en inspanningskeuze, licht en donker thema.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section id="start" class="start">
+  <div class="wrap">
+    <h2>Aan de slag</h2>
+    <p class="sub">Alles draait lokaal behalve het taalmodel. Een Anthropic API-sleutel en een laptop met 8 GB geheugen volstaan.</p>
+<pre><code>git clone https://github.com/inogen-ai/kamervragen-ai.git
+cd kamervragen-ai &amp;&amp; uv sync
+cp .env.example .env                      # ANTHROPIC_API_KEY invullen
+
+uv run kamervragen ingest --from-year 2019   # ~3 min, 17k documenten via de officiële API
+uv run kamervragen index                     # embeddings; ~2,5 uur op een M3 Pro
+uv run kamervragen serve                     # http://localhost:8000</code></pre>
+    <p class="note">Voor een server staat er een Docker Compose-stack met automatische HTTPS en wachtwoordbeveiliging in <code>deploy/</code>. De repository is op aanvraag beschikbaar voor SSC-ICT.</p>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap inner">
+    <span>© 2026 <a href="https://inogen.ai" target="_blank" rel="noopener">Inogen</a>. Gebouwd voor SSC-ICT.</span>
+    <span>Bronnen: Tweede Kamer Open Data · officielebekendmakingen.nl</span>
+  </div>
+</footer>
+</body>
+</html>
