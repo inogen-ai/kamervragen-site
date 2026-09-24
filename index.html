@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kamervragen AI</title>
-<meta name="description" content="Kamervragen AI beantwoordt vragen over beantwoorde schriftelijke Kamervragen, met bij elke bewering een letterlijk citaat en een link naar de officiële publicatie. Gebouwd door Inogen voor SSC-ICT.">
+<meta name="description" content="Kamervragen AI beantwoordt vragen over beantwoorde schriftelijke Kamervragen, met letterlijke citaten uit en links naar de officiële publicaties. Gebouwd door Inogen voor SSC-ICT.">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Kamervragen AI">
-<meta property="og:description" content="Antwoorden uit 17.000 beantwoorde Kamervragen, met een letterlijk citaat bij elke bewering.">
+<meta property="og:description" content="Antwoorden uit 17.000 beantwoorde Kamervragen, met letterlijke citaten uit de officiële publicaties.">
 <meta property="og:image" content="https://kamervragen.inogen.ai/assets/social.png">
 <meta property="og:url" content="https://kamervragen.inogen.ai">
 <meta name="twitter:card" content="summary_large_image">
@@ -36,7 +36,7 @@
   <div class="wrap">
     <p class="kick">Door <a href="https://inogen.ai" target="_blank" rel="noopener">Inogen</a> voor SSC-ICT</p>
     <h1>Vraag het aan zeventienduizend beantwoorde <i>Kamervragen.</i></h1>
-    <p class="lede">Kamervragen AI doorzoekt de volledige tekst van alle schriftelijke Kamervragen en regeringsantwoorden sinds 2019, zoekt zo vaak als nodig, en schrijft een antwoord waarin <b>elke bewering aan een letterlijk citaat</b> uit een specifiek document hangt, met een link naar de officiële publicatie.</p>
+    <p class="lede">Kamervragen AI doorzoekt de volledige tekst van alle schriftelijke Kamervragen en regeringsantwoorden sinds 2019, zoekt zo vaak als nodig, en schrijft een antwoord waarin <b>geciteerde zinnen aan het letterlijke citaat</b> uit een specifiek document hangen, met een link naar de officiële publicatie. Een onafhankelijke toets van de antwoorden laat zien hoe ver dat gaat.</p>
     <div class="actions">
       <a class="btn primary" href="#demo">Bekijk de demo</a>
       <a class="btn ghost" href="https://github.com/inogen-ai/kamervragen-ai" target="_blank" rel="noopener">Broncode en documentatie</a>
@@ -80,7 +80,7 @@
       <article>
         <span class="n">3</span>
         <h3>Een agent die citeert</h3>
-        <p>Claude bepaalt zelf welke zoekopdrachten nodig zijn, met welke periode, en zoekt opnieuw als de resultaten mager zijn. De antwoorden dragen citaten uit de API zelf: per zin de letterlijke passage en het brondocument. Niets wordt achteraf gereconstrueerd.</p>
+        <p>Claude bepaalt zelf welke zoekopdrachten nodig zijn, met welke periode, en zoekt opnieuw als de resultaten mager zijn. De antwoorden dragen citaten uit de API zelf: per geciteerde zin de letterlijke passage en het brondocument. Niets wordt achteraf gereconstrueerd.</p>
       </article>
     </div>
 
@@ -120,7 +120,7 @@
     <div class="callouts">
       <article>
         <h3>Antwoorden getoetst door een tweede model</h3>
-        <p>Elk demo-antwoord is door Claude Fable 5.1 beoordeeld op trouw aan de bronnen, volledigheid, helderheid en attributie. De systeemprompt is op de gevonden patronen herschreven; het aantal niet-gedekte beweringen daalde met ruim een derde.</p>
+        <p>Elk demo-antwoord is door Claude Fable 5.1 beoordeeld op trouw aan de bronnen, volledigheid, helderheid en attributie (4,25 van 5 op trouw na herziening van de prompt). Gemiddeld blijft ongeveer één bewering per lang antwoord over die iets verder gaat dan de bron, meestal een samenvattend kopje. De cijfers staan in de repository.</p>
       </article>
       <article>
         <h3>Eerlijk als het er niet is</h3>
@@ -142,7 +142,7 @@
 <section id="start" class="start">
   <div class="wrap">
     <h2>Aan de slag</h2>
-    <p class="sub">Alles draait lokaal behalve het taalmodel. Een Anthropic API-sleutel en een laptop met 8 GB geheugen volstaan.</p>
+    <p class="sub">Alles draait lokaal behalve het taalmodel. Een Anthropic API-sleutel en een laptop met 16 GB geheugen volstaan.</p>
 <pre><code>git clone https://github.com/inogen-ai/kamervragen-ai.git
 cd kamervragen-ai &amp;&amp; uv sync
 cp .env.example .env                      # ANTHROPIC_API_KEY invullen
@@ -150,7 +150,7 @@ cp .env.example .env                      # ANTHROPIC_API_KEY invullen
 uv run kamervragen ingest --from-year 2019   # ~3 min, 17k documenten via de officiële API
 uv run kamervragen index                     # embeddings; ~2,5 uur op een M3 Pro
 uv run kamervragen serve                     # http://localhost:8000</code></pre>
-    <p class="note">Voor een server staat er een Docker Compose-stack met automatische HTTPS en wachtwoordbeveiliging in <code>deploy/</code>. De repository is op aanvraag beschikbaar voor SSC-ICT.</p>
+    <p class="note">Voor een server staat er een Docker Compose-stack met automatische HTTPS en wachtwoordbeveiliging in <code>deploy/</code>. De repository is privé en op aanvraag beschikbaar voor SSC-ICT.</p>
   </div>
 </section>
 </main>
